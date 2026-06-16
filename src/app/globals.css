@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+  --font-display: "Cinzel", serif;
+  --font-body: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
   --color-void-900: #050407;
   --color-void-800: #0B0A1A;
   --color-surface-700: #12101F;
@@ -9,20 +13,17 @@
 
   --color-gold-500: #E8C46A;
   --color-gold-300: #F4D58D;
-  --color-aether-500: #7B5CFF;
-  --color-aether-300: #B388FF;
+  --color-aether-500: #2E8B8B;
+  --color-aether-300: #3CB5A0;
   --color-plasma-400: #45E0D0;
 
   --color-text-hi: #ECE8F5;
   --color-text-mid: #9A95B5;
   --color-text-low: #5C5878;
+
   --color-success: #45E0D0;
   --color-danger: #FF5C7A;
   --color-warning: #FFB266;
-
-  --font-display: "Cinzel", serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
 }
 
 @layer base {
@@ -34,33 +35,36 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-void-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     font-family: var(--font-body);
     background-color: var(--color-void-800);
     color: var(--color-text-hi);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
   ::selection {
-    background-color: var(--color-aether-500);
-    color: var(--color-void-900);
+    background-color: rgba(232, 196, 106, 0.3);
+    color: var(--color-text-hi);
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
   }
-
   ::-webkit-scrollbar-track {
     background: var(--color-void-900);
   }
-
   ::-webkit-scrollbar-thumb {
     background: var(--color-line);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-low);
   }
 
   a, button {
@@ -71,37 +75,32 @@
 
 @layer components {
   .glow-gold {
-    box-shadow: 0 0 40px rgba(232, 196, 106, 0.3), 0 0 80px rgba(232, 196, 106, 0.1);
+    box-shadow: 0 0 24px rgba(232, 196, 106, 0.2);
   }
-
   .glow-aether {
-    box-shadow: 0 0 40px rgba(123, 92, 255, 0.25), 0 0 80px rgba(123, 92, 255, 0.1);
+    box-shadow: 0 0 40px rgba(46, 139, 139, 0.2);
   }
-
   .glow-plasma {
-    box-shadow: 0 0 30px rgba(69, 224, 208, 0.3);
+    box-shadow: 0 0 20px rgba(69, 224, 208, 0.15);
   }
-
   .text-glow-gold {
-    text-shadow: 0 0 20px rgba(232, 196, 106, 0.5), 0 0 40px rgba(232, 196, 106, 0.2);
+    text-shadow: 0 0 20px rgba(232, 196, 106, 0.4);
   }
-
   .text-glow-aether {
-    text-shadow: 0 0 20px rgba(123, 92, 255, 0.5);
+    text-shadow: 0 0 16px rgba(46, 139, 139, 0.4);
   }
 
   .border-gradient-ritual {
     border: 1px solid transparent;
+    background-clip: padding-box;
     background-image: linear-gradient(var(--color-surface-700), var(--color-surface-700)),
-                      linear-gradient(135deg, var(--color-aether-500), var(--color-gold-500));
+      linear-gradient(135deg, var(--color-aether-500), var(--color-gold-500));
     background-origin: border-box;
-    background-clip: padding-box, border-box;
   }
 
   .sigil-rotate {
     animation: sigil-spin 120s linear infinite;
   }
-
   @keyframes sigil-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -110,10 +109,9 @@
   .ritual-ring {
     animation: ritual-pulse 3s ease-in-out infinite;
   }
-
   @keyframes ritual-pulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.05); }
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
   }
 
   .shimmer-gold {
@@ -124,9 +122,8 @@
       transparent 67%
     );
     background-size: 300% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    animation: shimmer 3s infinite;
   }
-
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
@@ -142,11 +139,22 @@
     padding-bottom: 6rem;
   }
 
-  @media (min-width: 768px) {
-    .section-spacing {
-      padding-top: 10rem;
-      padding-bottom: 10rem;
-    }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 100;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-gold-500);
+    color: var(--color-void-900);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
   }
 }
 
@@ -156,7 +164,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-
+  .sigil-rotate {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

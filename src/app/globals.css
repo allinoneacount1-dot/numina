@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void-900: #050407;
+  --color-void-800: #0B0A1A;
+  --color-surface-700: #12101F;
+  --color-surface-600: #1A1830;
+  --color-line: #2A2740;
+
+  --color-gold-500: #E8C46A;
+  --color-gold-300: #F4D58D;
+  --color-aether-500: #7B5CFF;
+  --color-aether-300: #B388FF;
+  --color-plasma-400: #45E0D0;
+
+  --color-text-hi: #ECE8F5;
+  --color-text-mid: #9A95B5;
+  --color-text-low: #5C5878;
+  --color-success: #45E0D0;
+  --color-danger: #FF5C7A;
+  --color-warning: #FFB266;
+
+  --font-display: "Cinzel", serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-void-900);
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-void-800);
+    color: var(--color-text-hi);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-aether-500);
+    color: var(--color-void-900);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-void-900);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+  }
+
+  a, button {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  .glow-gold {
+    box-shadow: 0 0 40px rgba(232, 196, 106, 0.3), 0 0 80px rgba(232, 196, 106, 0.1);
+  }
+
+  .glow-aether {
+    box-shadow: 0 0 40px rgba(123, 92, 255, 0.25), 0 0 80px rgba(123, 92, 255, 0.1);
+  }
+
+  .glow-plasma {
+    box-shadow: 0 0 30px rgba(69, 224, 208, 0.3);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(232, 196, 106, 0.5), 0 0 40px rgba(232, 196, 106, 0.2);
+  }
+
+  .text-glow-aether {
+    text-shadow: 0 0 20px rgba(123, 92, 255, 0.5);
+  }
+
+  .border-gradient-ritual {
+    border: 1px solid transparent;
+    background-image: linear-gradient(var(--color-surface-700), var(--color-surface-700)),
+                      linear-gradient(135deg, var(--color-aether-500), var(--color-gold-500));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .sigil-rotate {
+    animation: sigil-spin 120s linear infinite;
+  }
+
+  @keyframes sigil-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .ritual-ring {
+    animation: ritual-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes ritual-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  .shimmer-gold {
+    background: linear-gradient(
+      110deg,
+      transparent 33%,
+      rgba(232, 196, 106, 0.15) 50%,
+      transparent 67%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .focus-ritual:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+  }
+
+  .section-spacing {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-spacing {
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

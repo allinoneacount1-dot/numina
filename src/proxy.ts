@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   void req; // Next.js requires this function signature
   const response = NextResponse.next();
   response.headers.set("X-DNS-Prefetch-Control", "on");
